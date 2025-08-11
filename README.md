@@ -1,4 +1,4 @@
-# Full-Stack Authentication App & DevOps Pipeline
+# Full-Stack Authentication App & DevOps
 
 ### Introduction
 
