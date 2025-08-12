@@ -1,77 +1,93 @@
-# Full-Stack Authentication App & DevOps
+# Simple User Signup & Login Application
 
 ### Introduction
 
-Welcome to this comprehensive DevOps project. This repository documents the entire lifecycle of a modern web application, from initial source code to a fully automated CI/CD pipeline and infrastructure provisioned as code. It features a Python/Flask backend and a JavaScript frontend, is fully containerized with Docker, and demonstrates a professional Git workflow for version control.
+Welcome to this full-stack user authentication application. This project was built from the ground up to serve as a practical example of a secure, modern web application. It features a Python backend powered by the Flask framework and a dynamic, user-friendly frontend built with standard HTML, CSS, and JavaScript.
+
+**Project created by Mohd Azam Uddin.**
 
 ---
-## Our Git Workflow: From Feature to Release
+## What is this App?
 
-This project follows a structured Git branching strategy to ensure code quality and a stable `main` branch. Here is the exact process used to develop and release features.
+This application provides a fundamental user authentication system. Its core purpose is to allow new users to create a secure account and for existing users to sign in. It serves as a solid foundation for any web application that requires user management.
 
-#### 1. Create a Feature Branch
-All new development starts on a `feature` branch, which is created from the `dev` branch. This isolates new work from the stable and integration branches.
-
-```bash
-# Switch to the development branch
-git checkout dev
-
-# Create a new branch for the feature
-git checkout -b feature/add-readme
-```
-
-#### 2. Commit Changes
-Code changes are saved with clear, semantic commit messages that explain the purpose of the change.
-
-```bash
-# Stage the new files
-git add README.md .gitignore
-
-# Commit with a descriptive message
-git commit -m "docs: Create project README and add gitignore"
-```
-
-#### 3. Push and Create a Pull Request
-The feature branch is then pushed to the remote repository on GitHub. A Pull Request (PR) is opened to merge the new feature into the `dev` branch for testing and integration.
-
-```bash
-# Push the feature branch to the remote repository
-git push -u origin feature/add-readme
-```
-*After this command, a Pull Request is created on GitHub from `feature/add-readme` into `dev`.*
-
-#### 4. Prepare for Release
-Once the `dev` branch is stable and has accumulated enough features, a new Pull Request is created to merge `dev` into `main`, preparing for an official release.
-
-*A Pull Request is created on GitHub from `dev` into `main`.*
-
-#### 5. Tag a New Version
-After the release PR is merged into `main`, the commit is tagged with a version number to mark it as a stable release.
-
-```bash
-# Switch to the main branch and pull the latest changes
-git checkout main
-git pull origin main
-
-# Create a version tag
-git tag -a v1.0.0 -m "Version 1.0.0 - Initial stable release"
-
-# Push the tag to the remote repository
-git push origin v1.0.0
-```
+**Key Features:**
+* Secure user registration with password hashing.
+* User login and a personalized welcome dashboard.
+* A clean, responsive user interface.
 
 ---
-## Project Automation & Infrastructure
+## How It Was Built - The Journey
 
-* **CI/CD Pipeline (GitHub Actions & Jenkins):** The project includes a fully automated pipeline (`.github/workflows/main.yml` and `Jenkinsfile`) that handles testing (linting), building Docker images, and pushing them to Docker Hub on every commit to the `main` branch.
+This project started with a simple goal: create a functional signup system. The process evolved as we tackled common development challenges.
 
-* **Containerization (Docker):** Both the frontend and backend are containerized using `Dockerfile`s. A `docker-compose.yml` is provided for easy local development.
+#### 1. The Initial Backend
+The first version of the application was a simple **Flask** server. Initially, user data was stored in a plain text file called `users.json`. While this worked for a basic prototype, it quickly led to an **"Internal Server Error"** due to file permission issues and the risk of data corruption.
 
-* **Infrastructure as Code (Terraform):** A `main.tf` file is included to provision the entire application stack (backend, frontend, network) on Docker with a single `terraform apply` command.
+#### 2. Upgrading to a Real Database
+To fix the errors and make the application more stable, the backend was upgraded to use a proper database. We chose **SQLite** because it's lightweight and built into Python. The `Flask-SQLAlchemy` library was used to manage the database, which solved all the data storage problems and made the application much more robust.
+
+#### 3. Building the Frontend
+The user interface was built with standard **HTML** and **CSS**, with a focus on a clean and modern design. All the user interactions, like submitting forms and showing messages, are handled by **vanilla JavaScript**. A simple Node.js/Express server is used to serve the `index.html` file.
+
+---
+## Technologies & Dependencies Used
+
+#### Backend (Python)
+* **Flask**: The core web framework for building the API.
+* **Flask-SQLAlchemy**: For managing the SQLite database.
+* **Flask-CORS**: To handle Cross-Origin Resource Sharing between the frontend and backend.
+* **Werkzeug**: For secure password hashing.
+
+#### Frontend
+* **HTML5, CSS3, Vanilla JavaScript**: For building the entire client-side user interface and interactions.
+* **Node.js & Express.js**: A lightweight backend server is used to serve the static `index.html` file and manage the frontend's local development environment.
 
 ---
 ## How to Run Locally
-1.  Clone this repository.
-2.  Ensure Docker and Docker Compose are installed.
-3.  Run the command: `docker-compose up --build`
-4.  Access the application in your browser at `http://localhost:3000`.
+
+To run this application on your local machine, you will need to run the backend and frontend in two separate terminals.
+
+#### 1. Run the Backend
+```bash
+# Navigate to the backend directory
+cd backend
+
+# Create and activate a Python virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+
+# Install the required packages
+pip install -r requirements.txt
+
+# Start the Flask server
+python app.py
+```
+*The backend will be run at `http://localhost:5000`.*
+
+#### 2. Run the Frontend
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Install the Node.js dependencies
+npm install
+
+# Start the frontend server
+npm start
+```
+*The frontend will be run at `http://localhost:3000`.*
+
+---
+## Final Project Structure
+```
+.
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── database.db
+└── frontend/
+    ├── index.html
+    ├── server.js
+    └── package.json
+```
